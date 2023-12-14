@@ -29,7 +29,7 @@ public class TargetScreenController : MonoBehaviour
 		float currentDistance = distance;
 		Vector3 currentPosition = transform.position;
 
-		while (transform.position.z < Mathf.Abs(targetPosition))
+		while (Mathf.Abs(transform.position.z) < Mathf.Abs(targetPosition))
 		{
 			currentPosition.z += Time.deltaTime * direction * speedCurve.Evaluate(magnitude) * speedAmplitude;
 			transform.position = currentPosition;

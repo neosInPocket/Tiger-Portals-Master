@@ -9,6 +9,7 @@ public class TargetScreenController : MonoBehaviour
 	[SerializeField] private float speedAmplitude;
 	[SerializeField] private float epsilonThreshold;
 	[SerializeField] private List<TargetScreenTransition> transitions;
+	[SerializeField] private UIRefreshController refreshController;
 
 	private void Start()
 	{
@@ -17,6 +18,8 @@ public class TargetScreenController : MonoBehaviour
 
 	public void MoveToScreen(TargetScreenTransition target)
 	{
+		refreshController.Refresh();
+		StopAllCoroutines();
 		StartCoroutine(MoveTo(target));
 	}
 
@@ -29,15 +32,32 @@ public class TargetScreenController : MonoBehaviour
 		float currentDistance = distance;
 		Vector3 currentPosition = transform.position;
 
-		while (Mathf.Abs(transform.position.z) < Mathf.Abs(targetPosition))
+		if (direction > 0)
 		{
-			currentPosition.z += Time.deltaTime * direction * speedCurve.Evaluate(magnitude) * speedAmplitude;
-			transform.position = currentPosition;
-			EvaluateCurve(transform.position.z);
+			while (transform.position.z < targetPosition)
+			{
+				currentPosition.z += Time.deltaTime * speedCurve.Evaluate(magnitude) * speedAmplitude;
+				transform.position = currentPosition;
+				EvaluateCurve(transform.position.z);
 
-			currentDistance = targetPosition - transform.position.z;
-			magnitude = Mathf.Abs(targetPosition - transform.position.z) / Mathf.Abs(distance);
-			yield return new WaitForFixedUpdate();
+				currentDistance = targetPosition - transform.position.z;
+				magnitude = Mathf.Abs(targetPosition - transform.position.z) / Mathf.Abs(distance);
+				yield return new WaitForFixedUpdate();
+			}
+		}
+
+		if (direction < 0)
+		{
+			while (transform.position.z > targetPosition)
+			{
+				currentPosition.z -= Time.deltaTime * speedCurve.Evaluate(magnitude) * speedAmplitude;
+				transform.position = currentPosition;
+				EvaluateCurve(transform.position.z);
+
+				currentDistance = targetPosition - transform.position.z;
+				magnitude = Mathf.Abs(targetPosition - transform.position.z) / Mathf.Abs(distance);
+				yield return new WaitForFixedUpdate();
+			}
 		}
 
 		currentPosition.z = targetPosition;

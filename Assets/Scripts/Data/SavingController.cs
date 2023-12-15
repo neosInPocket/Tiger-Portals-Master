@@ -8,6 +8,9 @@ public class SavingController : MonoBehaviour
 	public static int BallsSpeed;
 	public static int ZoneHeight;
 	public static int TrailIndex;
+	public static int AllTimeScore;
+	public static float MusicVolume;
+	public static float SFXVolume;
 
 
 	[SerializeField] private bool defaults;
@@ -31,6 +34,9 @@ public class SavingController : MonoBehaviour
 		PlayerPrefs.SetInt("BallsSpeed", BallsSpeed);
 		PlayerPrefs.SetInt("ZoneHeight", ZoneHeight);
 		PlayerPrefs.SetInt("TrailIndex", TrailIndex);
+		PlayerPrefs.SetInt("AllTimeScore", AllTimeScore);
+		PlayerPrefs.SetFloat("MusicVolume", MusicVolume);
+		PlayerPrefs.SetFloat("SFXVolume", SFXVolume);
 
 		PlayerPrefs.Save();
 	}
@@ -43,6 +49,9 @@ public class SavingController : MonoBehaviour
 		BallsSpeed = PlayerPrefs.GetInt("BallsSpeed", 0);
 		ZoneHeight = PlayerPrefs.GetInt("ZoneHeight", 0);
 		TrailIndex = PlayerPrefs.GetInt("TrailIndex", 0);
+		TrailIndex = PlayerPrefs.GetInt("AllTimeScore", 0);
+		SFXVolume = PlayerPrefs.GetFloat("SFXVolume", 1f);
+		MusicVolume = PlayerPrefs.GetFloat("MusicVolume", 1f);
 	}
 
 	private static void ClearData()
@@ -53,6 +62,9 @@ public class SavingController : MonoBehaviour
 		BallsSpeed = 0;
 		ZoneHeight = 0;
 		TrailIndex = 0;
+		MusicVolume = 1f;
+		SFXVolume = 1f;
+		AllTimeScore = 0;
 		Save();
 	}
 }

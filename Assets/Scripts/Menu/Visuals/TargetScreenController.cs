@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TargetScreenController : MonoBehaviour
 {
@@ -10,6 +12,8 @@ public class TargetScreenController : MonoBehaviour
 	[SerializeField] private float epsilonThreshold;
 	[SerializeField] private List<TargetScreenTransition> transitions;
 	[SerializeField] private UIRefreshController refreshController;
+	[SerializeField] private float fadeTime;
+	[SerializeField] private CanvasGroup menuScreenTransition;
 
 	private void Start()
 	{
@@ -72,4 +76,27 @@ public class TargetScreenController : MonoBehaviour
 		}
 	}
 
+	public void PlayTransition()
+	{
+		StartCoroutine(PlayCoroutine());
+	}
+
+	private IEnumerator PlayCoroutine()
+	{
+		float currentTime = 0;
+
+		while (currentTime < fadeTime)
+		{
+			menuScreenTransition.alpha = 1 - currentTime / fadeTime;
+			currentTime += Time.deltaTime;
+			yield return new WaitForEndOfFrame();
+		}
+
+		LoadPlayScene();
+	}
+
+	private void LoadPlayScene()
+	{
+		SceneManager.LoadScene("PlayScene");
+	}
 }

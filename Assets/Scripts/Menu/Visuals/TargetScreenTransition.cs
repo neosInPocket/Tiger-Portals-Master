@@ -13,5 +13,6 @@ public class TargetScreenTransition : MonoBehaviour
 	public void SetTransparency(AnimationCurve curve)
 	{
 		canvasGroup.alpha = curve.Evaluate(transform.position.z);
+		canvasGroup.blocksRaycasts = canvasGroup.alpha > 0.8f;
 	}
 }

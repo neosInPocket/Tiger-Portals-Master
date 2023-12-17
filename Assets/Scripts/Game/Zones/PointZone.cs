@@ -14,13 +14,8 @@ public class PointZone : MonoBehaviour
 		{
 			m_width = value;
 			var scale = mainGlow.transform.localScale;
-			scale.x = value;
+			scale.z = value;
 			mainGlow.transform.localScale = scale;
-
-			var dustScale = dust.shape.scale;
-			dustScale.x = value;
-			var dustShape = dust.shape;
-			dustShape.scale = dustScale;
 		}
 	}
 
@@ -31,13 +26,18 @@ public class PointZone : MonoBehaviour
 		{
 			m_height = value;
 			var scale = mainGlow.transform.localScale;
-			scale.z = value;
+			scale.x = value;
 			mainGlow.transform.localScale = scale;
+		}
+	}
 
-			var dustScale = dust.shape.scale;
-			dustScale.z = value;
-			var dustShape = dust.shape;
-			dustShape.scale = dustScale;
+	public Vector2 Size
+	{
+		get => mainGlow.transform.localScale;
+		set
+		{
+			Height = value.y;
+			Width = value.x;
 		}
 	}
 

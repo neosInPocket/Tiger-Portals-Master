@@ -1,18 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EntryPoint : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	[SerializeField] private RouteObject[] routeObjects;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	private void Start()
+	{
+		foreach (var obj in routeObjects)
+		{
+			obj.Enabled = false;
+			obj.Restart();
+			obj.Freezed = true;
+		}
+	}
 }

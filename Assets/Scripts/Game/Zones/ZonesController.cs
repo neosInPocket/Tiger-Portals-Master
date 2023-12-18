@@ -29,8 +29,8 @@ public class ZonesController : MonoBehaviour
 
 		for (int i = 3; i < 6; i++)
 		{
-			pointZones[i].Color = shuffled2[i];
-			barriers[i].Color = shuffled2[i];
+			pointZones[i].Color = shuffled2[i - 3];
+			barriers[i].Color = shuffled2[i - 3];
 		}
 	}
 }

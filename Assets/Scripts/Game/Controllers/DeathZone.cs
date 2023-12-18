@@ -30,7 +30,7 @@ public class DeathZone : MonoBehaviour
 	{
 		if (collider.TryGetComponent<Ball>(out Ball ball))
 		{
-			ball.Disable();
+			ball.Disable(true);
 		}
 	}
 }

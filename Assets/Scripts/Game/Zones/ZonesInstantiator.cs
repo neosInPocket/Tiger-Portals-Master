@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ZonesInstantiator : RouteObject
@@ -41,7 +42,8 @@ public class ZonesInstantiator : RouteObject
 
 	private List<TriggerBarrier> SpawnBarriers()
 	{
-		var barriers = new List<TriggerBarrier>();
+		var leftBarriers = new List<TriggerBarrier>();
+		var rightBarriers = new List<TriggerBarrier>();
 
 		screenSize = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
 
@@ -63,16 +65,18 @@ public class ZonesInstantiator : RouteObject
 			leftBarrier.Size = barrierSize;
 			rightBarrier.Size = barrierSize;
 
-			barriers.Add(leftBarrier);
-			barriers.Add(rightBarrier);
+			leftBarriers.Add(leftBarrier);
+			rightBarriers.Add(rightBarrier);
 		}
 
-		return barriers;
+		return leftBarriers.Concat(rightBarriers).ToList();
 	}
 
 	private List<PointZone> SpawnZones()
 	{
-		List<PointZone> zones = new List<PointZone>();
+		List<PointZone> leftZones = new List<PointZone>();
+		List<PointZone> rightZones = new List<PointZone>();
+
 		float allZoneWidth = 2 * (xAnchors.y - xAnchors.x) / 2 * screenSize.x;
 		float barrierWidth = 2 * barrierWidthScreenSizeRelative * screenSize.x;
 		float zoneWidth = allZoneWidth - 2 * barrierWidth;
@@ -86,7 +90,7 @@ public class ZonesInstantiator : RouteObject
 			zone.Size = new Vector2(zoneWidth, zoneHeight);
 			zone.transform.position = position;
 
-			zones.Add(zone);
+			leftZones.Add(zone);
 		}
 
 		for (int i = 0; i < 3; i++)
@@ -96,10 +100,10 @@ public class ZonesInstantiator : RouteObject
 			zone.Size = new Vector2(-zoneWidth, zoneHeight);
 			zone.transform.position = position;
 
-			zones.Add(zone);
+			rightZones.Add(zone);
 		}
 
-		return zones;
+		return leftZones.Concat(rightZones).ToList();
 	}
 
 	private List<ShooterPortal> SpawnShooters()

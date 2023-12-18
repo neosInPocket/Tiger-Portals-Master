@@ -17,7 +17,7 @@ public class BallsPool : MonoBehaviour
 		for (int i = 0; i < initialSize; i++)
 		{
 			var ball = Instantiate(prefab, transform);
-			ball.Disable();
+			ball.Disable(false);
 			balls.Add(ball);
 		}
 	}
@@ -46,7 +46,7 @@ public class BallsPool : MonoBehaviour
 		return Instantiate(Vector2.zero);
 	}
 
-	public void EnableAll(bool value)
+	public void EnableAll(bool value, bool withEffects)
 	{
 		foreach (var ball in balls)
 		{
@@ -56,7 +56,7 @@ public class BallsPool : MonoBehaviour
 			}
 			else
 			{
-				ball.Disable();
+				ball.Disable(withEffects);
 			}
 		}
 	}

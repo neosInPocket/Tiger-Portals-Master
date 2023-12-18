@@ -6,6 +6,8 @@ public class ShooterPortalsController : RouteObject
 {
 	[SerializeField] private Vector2 spawnDelay;
 	[SerializeField] private BallsPool ballsPool;
+	[SerializeField] private float[] ballSpeed;
+
 	public override bool Enabled
 	{
 		get => isEnabled;
@@ -34,17 +36,19 @@ public class ShooterPortalsController : RouteObject
 		if (isFreezed) yield break;
 
 		isSpawned = true;
+		Ball ball = default;
 
 		var randomInt = Random.Range(0, 2);
 		if (randomInt == 0)
 		{
-			ballsPool.Instantiate(portals[0].transform.position);
+			ball = ballsPool.Instantiate(portals[0].transform.position);
 		}
 		else
 		{
-			ballsPool.Instantiate(portals[1].transform.position);
+			ball = ballsPool.Instantiate(portals[1].transform.position);
 		}
 
+		ball.SetSpeed(ballSpeed[SavingController.BallsSpeed]);
 		yield return new WaitForSeconds(Random.Range(spawnDelay.x, spawnDelay.y));
 
 		isSpawned = false;
@@ -57,6 +61,6 @@ public class ShooterPortalsController : RouteObject
 
 	public override void Restart()
 	{
-		//Enabled = false;
+		Enabled = false;
 	}
 }

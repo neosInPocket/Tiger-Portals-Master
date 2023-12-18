@@ -85,6 +85,8 @@ public class ZonesInstantiator : RouteObject
 			var zone = Instantiate(pointZonePrefab, zonesController.transform);
 			zone.Size = new Vector2(zoneWidth, zoneHeight);
 			zone.transform.position = position;
+
+			zones.Add(zone);
 		}
 
 		for (int i = 0; i < 3; i++)

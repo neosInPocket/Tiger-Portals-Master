@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PointZone : MonoBehaviour
@@ -41,6 +42,25 @@ public class PointZone : MonoBehaviour
 		}
 	}
 
+	public Color Color
+	{
+		get => m_color;
+		set
+		{
+			m_color = value;
+			var mainGlowMain = mainGlow.main;
+			var mainGlowAlpha = mainGlowMain.startColor.color.a;
+			value.a = mainGlowAlpha;
+			mainGlowMain.startColor = value;
+
+			var dustMain = dust.main;
+			var dustMainAlpha = mainGlowMain.startColor.color.a;
+			value.a = dustMainAlpha;
+			dustMain.startColor = value;
+		}
+	}
+
 	private float m_width;
 	private float m_height;
+	private Color m_color;
 }

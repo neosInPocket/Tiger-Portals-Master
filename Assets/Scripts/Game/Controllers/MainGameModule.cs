@@ -1,10 +1,13 @@
 using System;
+using System.ComponentModel;
 using UnityEngine;
 
 public class MainGameModule : MonoBehaviour
 {
 	[SerializeField] private ShowGameWindow showGameWindow;
 	[SerializeField] private AppearGame appearGame;
+	[SerializeField] private GameProcess gameProcess;
+	[SerializeField] private EntryPoint entryPoint;
 	private Action CheckAction;
 
 	public void Process(Action onCheckAction)
@@ -30,6 +33,6 @@ public class MainGameModule : MonoBehaviour
 
 	private void OnAppearEnd()
 	{
-		Debug.Log("END");
+		gameProcess.Initialize(entryPoint);
 	}
 }

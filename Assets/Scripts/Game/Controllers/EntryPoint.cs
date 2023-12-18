@@ -16,4 +16,20 @@ public class EntryPoint : MonoBehaviour
 
 		mainGameModule.Process(() => Debug.Log("ENDED"));
 	}
+
+	public void EnableAll(bool value)
+	{
+		foreach (var obj in routeObjects)
+		{
+			obj.Enabled = value;
+		}
+	}
+
+	public void FreezeAll(bool value)
+	{
+		foreach (var obj in routeObjects)
+		{
+			obj.Freezed = value;
+		}
+	}
 }

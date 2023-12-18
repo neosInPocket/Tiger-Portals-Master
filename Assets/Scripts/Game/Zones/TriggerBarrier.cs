@@ -9,4 +9,6 @@ public class TriggerBarrier : MonoBehaviour
 		get => spriteRenderer.size;
 		set => spriteRenderer.size = value;
 	}
+
+	public Color Color { get; set; }
 }

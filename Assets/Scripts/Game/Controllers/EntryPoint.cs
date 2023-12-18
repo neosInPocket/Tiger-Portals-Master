@@ -3,6 +3,7 @@ using UnityEngine;
 public class EntryPoint : MonoBehaviour
 {
 	[SerializeField] private RouteObject[] routeObjects;
+	[SerializeField] private MainGameModule mainGameModule;
 
 	private void Start()
 	{
@@ -12,5 +13,7 @@ public class EntryPoint : MonoBehaviour
 			obj.Restart();
 			obj.Freezed = true;
 		}
+
+		mainGameModule.Process(() => Debug.Log("ENDED"));
 	}
 }

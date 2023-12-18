@@ -35,9 +35,6 @@ public class TouchInputController : RouteObject
 	{
 		EnhancedTouchSupport.Enable();
 		TouchSimulation.Enable();
-
-		Debug.LogError("Remove");
-		Enabled = true;
 	}
 
 	private void OnFingerTouch(Finger finger)

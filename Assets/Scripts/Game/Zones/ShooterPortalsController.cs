@@ -21,12 +21,6 @@ public class ShooterPortalsController : RouteObject
 	private bool isSpawned;
 	private List<ShooterPortal> portals;
 
-	private void Start()
-	{
-		Debug.LogError("Remove");
-		Enabled = true;
-	}
-
 	private void Update()
 	{
 		if (!Enabled) return;

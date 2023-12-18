@@ -6,12 +6,15 @@ public class ZonesInstantiator : RouteObject
 	[Header("Prefabs")]
 	[SerializeField] private TriggerBarrier barrier;
 	[SerializeField] private PointZone pointZonePrefab;
+	[SerializeField] private ShooterPortal shooterPortalPrefab;
 
 	[Header("Positions")]
 	[SerializeField] private Vector2 xAnchors;
 	[SerializeField] private Vector2 yAnchors;
 	[SerializeField] private float barrierWidthScreenSizeRelative;
+	[SerializeField] private float portalXAnchor;
 	[SerializeField] private ZonesController zonesController;
+	[SerializeField] private ShooterPortalsController shooterController;
 	private Vector2 screenSize;
 
 	public override bool Enabled
@@ -28,28 +31,46 @@ public class ZonesInstantiator : RouteObject
 
 	public override void Restart()
 	{
-		SpawnBarriers();
-		SpawnZones();
+		var barriers = SpawnBarriers();
+		var zones = SpawnZones();
+		var portals = SpawnShooters();
+
+		zonesController.SetZones(zones, barriers);
+		shooterController.SetPortals(portals);
 	}
 
-	private void SpawnBarriers()
+	private List<TriggerBarrier> SpawnBarriers()
 	{
+		var barriers = new List<TriggerBarrier>();
+
 		screenSize = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
 
 		float barrierWidth = barrierWidthScreenSizeRelative * screenSize.x * 2;
 
-		Vector2 leftBarrierPosition = new Vector2(-barrierWidth / 2, 0);
-		Vector2 rightBarrierPosition = new Vector2(barrierWidth / 2, 0);
-		var leftBarrier = Instantiate(barrier, leftBarrierPosition, Quaternion.identity, transform);
-		var rightBarrier = Instantiate(barrier, rightBarrierPosition, Quaternion.identity, transform);
-
-		float barrierHeight = (yAnchors.y - yAnchors.x) * screenSize.y * 2;
+		float barrierHeight = (yAnchors.y - yAnchors.x) * screenSize.y * 2 / 3;
 		Vector2 barrierSize = new Vector2(barrierWidth, barrierHeight);
-		leftBarrier.Size = barrierSize;
-		rightBarrier.Size = barrierSize;
+
+		float yStart = 2 * yAnchors.x * screenSize.y - screenSize.y + barrierHeight / 2;
+
+		for (int i = 0; i < 3; i++)
+		{
+			Vector2 leftPosition = new Vector2(-barrierWidth / 2, yStart + barrierHeight * i);
+			Vector2 rightPosition = new Vector2(barrierWidth / 2, yStart + barrierHeight * i);
+
+			var leftBarrier = Instantiate(barrier, leftPosition, Quaternion.identity, zonesController.transform);
+			var rightBarrier = Instantiate(barrier, rightPosition, Quaternion.identity, zonesController.transform);
+
+			leftBarrier.Size = barrierSize;
+			rightBarrier.Size = barrierSize;
+
+			barriers.Add(leftBarrier);
+			barriers.Add(rightBarrier);
+		}
+
+		return barriers;
 	}
 
-	private void SpawnZones()
+	private List<PointZone> SpawnZones()
 	{
 		List<PointZone> zones = new List<PointZone>();
 		float allZoneWidth = 2 * (xAnchors.y - xAnchors.x) / 2 * screenSize.x;
@@ -61,9 +82,40 @@ public class ZonesInstantiator : RouteObject
 		for (int i = 0; i < 3; i++)
 		{
 			Vector2 position = new Vector2(-barrierWidth / 2, yStart + zoneHeight * i);
-			var zone = Instantiate(pointZonePrefab, transform);
+			var zone = Instantiate(pointZonePrefab, zonesController.transform);
 			zone.Size = new Vector2(zoneWidth, zoneHeight);
 			zone.transform.position = position;
 		}
+
+		for (int i = 0; i < 3; i++)
+		{
+			Vector2 position = new Vector2(barrierWidth / 2, yStart + zoneHeight * i);
+			var zone = Instantiate(pointZonePrefab, zonesController.transform);
+			zone.Size = new Vector2(-zoneWidth, zoneHeight);
+			zone.transform.position = position;
+
+			zones.Add(zone);
+		}
+
+		return zones;
+	}
+
+	private List<ShooterPortal> SpawnShooters()
+	{
+		var portals = new List<ShooterPortal>();
+
+		Vector2 leftPosition = new Vector2(2 * portalXAnchor * screenSize.x - screenSize.x, yAnchors.x * screenSize.y - screenSize.y);
+		Vector2 rightPosition = new Vector2(-2 * portalXAnchor * screenSize.x + screenSize.x, yAnchors.x * screenSize.y - screenSize.y);
+
+		var leftPortal = Instantiate(shooterPortalPrefab, shooterController.transform);
+		var rightPortal = Instantiate(shooterPortalPrefab, shooterController.transform);
+
+		leftPortal.transform.position = leftPosition;
+		rightPortal.transform.position = rightPosition;
+
+		portals.Add(leftPortal);
+		portals.Add(rightPortal);
+
+		return portals;
 	}
 }

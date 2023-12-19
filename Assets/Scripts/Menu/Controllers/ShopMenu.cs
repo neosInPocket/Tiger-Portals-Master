@@ -7,6 +7,7 @@ public class ShopMenu : Refreshable
 	[SerializeField] private InfoPanel infoPanel;
 	[SerializeField] private List<UpgradeItemController> upgradeItemControllers;
 	[SerializeField] private UpgradesData upgradesData;
+	[SerializeField] private UIRefreshController uIRefreshController;
 
 	public override void Refresh()
 	{
@@ -18,11 +19,11 @@ public class ShopMenu : Refreshable
 
 			if (upgradeInfo.CurrencyType == CurrencyType.Coins)
 			{
-				isEnabled = SavingController.CoinsAmount >= upgradeInfo.Cost && SavingController.BallsSpeed <= 4;
+				isEnabled = SavingController.CoinsAmount >= upgradeInfo.Cost && SavingController.BallsSpeed < 3;
 			}
 			else
 			{
-				isEnabled = SavingController.DiamondsAmount >= upgradeInfo.Cost && SavingController.ZoneHeight <= 4;
+				isEnabled = SavingController.DiamondsAmount >= upgradeInfo.Cost && SavingController.DiamondSpawnChance < 3;
 			}
 
 			item.CheckEnabled(isEnabled);
@@ -50,10 +51,10 @@ public class ShopMenu : Refreshable
 		}
 		else
 		{
-			SavingController.ZoneHeight++;
+			SavingController.DiamondSpawnChance++;
 		}
 
 		SavingController.Save();
-		Refresh();
+		uIRefreshController.Refresh();
 	}
 }

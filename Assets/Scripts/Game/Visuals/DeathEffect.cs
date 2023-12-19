@@ -7,9 +7,11 @@ public class DeathEffect : MonoBehaviour
 	[SerializeField] private ParticleSystem[] particleSystems;
 	public Color CurrentColor { get; set; }
 
-	public void Disable(GameObject go)
+	public void Disable(GameObject go, SpriteRenderer targetSpriteRenderer, CircleCollider2D targetCollider)
 	{
 		gameObject.SetActive(true);
+		targetSpriteRenderer.enabled = false;
+		targetCollider.enabled = false;
 
 		foreach (var system in particleSystems)
 		{
@@ -24,5 +26,6 @@ public class DeathEffect : MonoBehaviour
 	{
 		yield return new WaitForSeconds(1);
 		go.SetActive(false);
+		gameObject.SetActive(false);
 	}
 }

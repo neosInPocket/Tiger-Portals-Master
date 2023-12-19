@@ -18,7 +18,7 @@ public class TrailShopController : Refreshable
 	[SerializeField] private Button leftArrowButton;
 	[SerializeField] private Button rightArrowButton;
 	[SerializeField] private Button purchaseButton;
-	[SerializeField] private InfoPanel infoPanel;
+	[SerializeField] private UIRefreshController refresher;
 	[SerializeField] private TMP_Text trailNameText;
 	[SerializeField] private string[] trailNames;
 	private float currentTime;
@@ -61,30 +61,29 @@ public class TrailShopController : Refreshable
 		currentTrailIndex = SavingController.TrailIndex;
 		DisableAllTrails();
 		trails[currentTrailIndex].gameObject.SetActive(true);
-		RefreshButton(currentTrailIndex + 2);
-		RefreshButton(currentTrailIndex - 2);
+		RefreshButton();
 	}
 
-	public void RefreshButton(int value)
+	public void RefreshButton()
 	{
 		trailNameText.text = trailNames[currentTrailIndex];
 
-		if (value < 0)
-		{
-			leftArrowButton.interactable = false;
-		}
-		else
-		{
-			leftArrowButton.interactable = true;
-		}
-
-		if (value > 7)
+		if (currentTrailIndex > 5)
 		{
 			rightArrowButton.interactable = false;
 		}
 		else
 		{
 			rightArrowButton.interactable = true;
+		}
+
+		if (currentTrailIndex <= 0)
+		{
+			leftArrowButton.interactable = false;
+		}
+		else
+		{
+			leftArrowButton.interactable = true;
 		}
 
 		var cost = GetTrailCost(currentTrailIndex);
@@ -97,7 +96,7 @@ public class TrailShopController : Refreshable
 
 		if (currentTrailIndex - 1 == SavingController.TrailIndex)
 		{
-			if (SavingController.CoinsAmount - GetTrailCost(currentTrailIndex) < 0)
+			if (SavingController.DiamondsAmount - GetTrailCost(currentTrailIndex) < 0)
 			{
 				NotEnoughMoneyButton(cost);
 			}
@@ -140,7 +139,7 @@ public class TrailShopController : Refreshable
 	public void Increase(int value)
 	{
 		currentTrailIndex += value;
-		RefreshButton(currentTrailIndex + value);
+		RefreshButton();
 
 		DisableAllTrails();
 		trails[currentTrailIndex].gameObject.SetActive(true);
@@ -163,15 +162,15 @@ public class TrailShopController : Refreshable
 
 	public int GetTrailCost(int index)
 	{
-		return index * 5 + 5;
+		return index;
 	}
 
 	public void Purchase()
 	{
-		SavingController.CoinsAmount -= GetTrailCost(currentTrailIndex);
+		SavingController.DiamondsAmount -= GetTrailCost(currentTrailIndex);
 		SavingController.TrailIndex = currentTrailIndex;
 		SavingController.Save();
-		RefreshButton(currentTrailIndex);
-		infoPanel.Refresh();
+		RefreshButton();
+		refresher.Refresh();
 	}
 }

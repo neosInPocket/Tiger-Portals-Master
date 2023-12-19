@@ -5,6 +5,7 @@ using UnityEngine;
 public class ZonesController : MonoBehaviour
 {
 	[SerializeField] private RandomColors randomColors;
+	[SerializeField] private GameProcess gameProcess;
 	private List<PointZone> pointZones;
 	private List<TriggerBarrier> barriers;
 
@@ -23,6 +24,8 @@ public class ZonesController : MonoBehaviour
 		{
 			pointZones[i].Color = shuffled1[i];
 			barriers[i].Color = shuffled1[i];
+			barriers[i].OnBallTriggerEnter += OnBallTriggerEnter;
+			barriers[i].Side = ObjectSide.Left;
 		}
 
 		List<Color> shuffled2 = randomColors.GetShuffeledList();
@@ -31,6 +34,20 @@ public class ZonesController : MonoBehaviour
 		{
 			pointZones[i].Color = shuffled2[i - 3];
 			barriers[i].Color = shuffled2[i - 3];
+			barriers[i].OnBallTriggerEnter += OnBallTriggerEnter;
+			barriers[i].Side = ObjectSide.Right;
+		}
+	}
+
+	private void OnBallTriggerEnter(bool value)
+	{
+		if (value)
+		{
+			gameProcess.IncreasePoints(4);
+		}
+		else
+		{
+			gameProcess.IncreasePoints(-1);
 		}
 	}
 }

@@ -27,8 +27,8 @@ public class BallsPool : MonoBehaviour
 		var activeBall = balls.FirstOrDefault(x => !x.gameObject.activeSelf);
 		if (activeBall != null)
 		{
-			activeBall.Enable();
 			activeBall.CurrentColor = randomColors.GetRandomColor();
+			activeBall.Enable();
 			activeBall.transform.position = position;
 			return activeBall;
 		}

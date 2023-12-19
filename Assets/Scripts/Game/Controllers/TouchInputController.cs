@@ -5,8 +5,7 @@ using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 
 public class TouchInputController : RouteObject
 {
-	public Action<bool> OnFingerDown;
-	public Action<Vector2> OnFingerDownPosition;
+	public Action<bool, Vector2> OnFingerDown;
 
 	public override bool Enabled
 	{
@@ -39,17 +38,16 @@ public class TouchInputController : RouteObject
 
 	private void OnFingerTouch(Finger finger)
 	{
+		var worldPos = Camera.main.ScreenToWorldPoint(finger.screenPosition);
+
 		if (finger.screenPosition.x < Screen.width / 2)
 		{
-			OnFingerDown?.Invoke(false);
+			OnFingerDown?.Invoke(true, worldPos);
 		}
 		else
 		{
-			OnFingerDown?.Invoke(true);
+			OnFingerDown?.Invoke(false, worldPos);
 		}
-
-		var worldPos = Camera.main.ScreenToWorldPoint(finger.screenPosition);
-		OnFingerDownPosition?.Invoke(worldPos);
 	}
 
 	public override void Restart()

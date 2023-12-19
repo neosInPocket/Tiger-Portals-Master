@@ -20,7 +20,7 @@ public class StatsContainer : Refreshable
 
 		if (statsType == StatsType.ZoneHeight)
 		{
-			resultText.text = $"{SavingController.ZoneHeight}/3";
+			resultText.text = $"{SavingController.DiamondSpawnChance}/3";
 		}
 	}
 

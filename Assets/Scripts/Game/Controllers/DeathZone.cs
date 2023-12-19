@@ -10,6 +10,7 @@ public class DeathZone : MonoBehaviour
 	[SerializeField] private ParticleSystemRenderer pRenderer;
 	[SerializeField] private BoxCollider2D boxCollider;
 	[SerializeField] private bool flipY;
+	[SerializeField] private GameProcess gameProcess;
 
 	private void Start()
 	{
@@ -31,6 +32,7 @@ public class DeathZone : MonoBehaviour
 		if (collider.TryGetComponent<Ball>(out Ball ball))
 		{
 			ball.Disable(true);
+			gameProcess.IncreasePoints(-1);
 		}
 	}
 }

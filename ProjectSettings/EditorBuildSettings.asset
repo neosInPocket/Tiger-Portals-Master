@@ -11,4 +11,52 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PlayScene.unity
     guid: 4026d061876be1345ae3b24277b42cc3
+  - enabled: 1
+    path: Assets/Scenes/AnimationScene.unity
+    guid: 2db03345f303dd549ba867e9a615da8d
+  - enabled: 1
+    path: Assets/Scenes/AnimationScene 1.unity
+    guid: 5d5677dcc00f454419d024fee6f25b07
+  - enabled: 1
+    path: Assets/Scenes/AnimationScene 2.unity
+    guid: 392fd75a1bfcc084fbcda685053c5aeb
+  - enabled: 1
+    path: Assets/Scenes/AnimationScene 3.unity
+    guid: a538191e3d7a0a7409d3f8870e0bd876
+  - enabled: 1
+    path: Assets/Scenes/AnimationScene 4.unity
+    guid: fed8819af65aaed43bd169e9b29b8ed8
+  - enabled: 1
+    path: Assets/Scenes/AnimationScene 5.unity
+    guid: b1d566e970604e040b7fac215d42feff
+  - enabled: 1
+    path: Assets/Scenes/AnimationScene 6.unity
+    guid: e74a177a719be0242ae8a3a6afd2abb1
+  - enabled: 1
+    path: Assets/Scenes/AnimationScene 7.unity
+    guid: 07cc8b5b72fc8374c909cbefc7c45bdd
+  - enabled: 1
+    path: Assets/Scenes/AnimationScene 8.unity
+    guid: f850e6db635966c4ba23dc84281ec052
+  - enabled: 1
+    path: Assets/Scenes/AnimationScene 9.unity
+    guid: 8970a191dd30a524b8359e57a87deb9d
+  - enabled: 1
+    path: Assets/Scenes/AnimationScene 10.unity
+    guid: 75a5d5a6b5f509d4a82fab4676f8f38c
+  - enabled: 1
+    path: Assets/Scenes/AnimationScene 11.unity
+    guid: 26ef64e2d19fc594b81df65b24c00540
+  - enabled: 1
+    path: Assets/Scenes/AnimationScene 12.unity
+    guid: 4aabf48b8948e33409f2e5be38a4357a
+  - enabled: 1
+    path: Assets/Scenes/AnimationScene 13.unity
+    guid: 394ebb7f3455c15419864ef08b493895
+  - enabled: 1
+    path: Assets/Scenes/AnimationScene 14.unity
+    guid: 81690cf368d208e4888d5fecacaabd46
+  - enabled: 1
+    path: Assets/Scenes/AnimationScene 15.unity
+    guid: 6720a08f0c3d2a2499b22ed925a54d9f
   m_configObjects: {}

@@ -5320,7 +5320,7 @@ MonoBehaviour:
   barrier: {fileID: 2216902371559888718, guid: 68d1de043b2afeb4f8a6e92915e96cb4, type: 3}
   pointZonePrefab: {fileID: 4125945175396840338, guid: 55d2f90b3f99b3d49b39431483a1b522, type: 3}
   shooterPortalPrefab: {fileID: 5555277946247384018, guid: d7604e942f3725948a3685bcb2e42894, type: 3}
-  xAnchors: {x: 0.2, y: 0.8}
+  xAnchors: {x: 0.1, y: 0.9}
   yAnchors: {x: 0.2, y: 0.882}
   barrierWidthScreenSizeRelative: 0.02
   portalXAnchor: 0.15
@@ -40974,7 +40974,7 @@ MonoBehaviour:
     secondArrowTarget: {fileID: 0}
     firstArrowRotation: 0
     secondArrowRotation: 0
-    characterText: WELCOME TO IMMERSIVE CHINA TOWN!
+    characterText: WELCOME TO Tiger Portals Master!
     tutorialContainerTarget: {fileID: 0}
   - firstArrowEnabled: 1
     secondArrowEnabled: 1
@@ -57158,7 +57158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 4
-  m_AspectRatio: 0.56
+  m_AspectRatio: 0.46191406
 --- !u!114 &1885632713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57172,7 +57172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7264151, g: 0.7264151, b: 0.7264151, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
